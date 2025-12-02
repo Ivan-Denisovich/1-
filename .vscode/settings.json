@@ -1,0 +1,9 @@
+{
+  "editor.defaultFormatter": "ms-python.black-formatter",
+  "python.analysis.typeCheckingMode": "standard",
+  "autoDocstring.docstringFormat": "sphinx",
+  "editor.formatOnSave": true,
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
