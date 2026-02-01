@@ -10,6 +10,9 @@ from application.exceptions import (
 from application.ports import MarketDatabaseRepository, UserDatabaseRepository
 from domain.entities import Flat, User, UserProperty
 from domain.exceptions import NotEnoughMoney
+import csv
+
+ 
 
 USERS_LOCAL_TABLE_PATH = "data/db/users.csv"
 FLATS_LOCAL_TABLE_PATH = "data/db/flats.csv"
@@ -97,10 +100,28 @@ class LocalUserDatabase(UserDatabaseRepository):
         return user_property
 
     def add_money(self, user_id: int, amount: int) -> None:
-        pass
+        with open(USERS_LOCAL_TABLE_PATH, "r", encoding ="UTF8") as table:
+            read_table = csv.reader(table) 
+            list_table = list(read_table)
+        itog_balance = int(list_table[user_id][3]) + amount
+        list_table[user_id][3] = str(itog_balance) 
+                
+        with open(USERS_LOCAL_TABLE_PATH, "w", encoding ="UTF8" ) as table:
+            writer_table = csv.writer(table)
+            writer_table.writerows(table)
 
     def edit_profile(self, user_id: int, new_username, new_password_hash: str) -> None:
-        pass
+        with open(USERS_LOCAL_TABLE_PATH, "r", encoding="UTF-8") as table:
+            read_table = csv.reader(table)
+            list_table = list(read_table)
+        if new_username is not None: 
+            list_table[user_id][1] = new_username 
+        if new_password_hash is not None:
+            list_table[user_id][2] = new_password_hash 
+        
+        with open(USERS_LOCAL_TABLE_PATH, "w", encoding="UTF8-") as table:
+            writer_table = csv.writer(table)
+            writer_table.writerows(table) 
 
 
 class LocalMarketDatabase(MarketDatabaseRepository):

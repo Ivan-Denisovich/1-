@@ -14,6 +14,8 @@ from domain.exceptions import InvalidPassword, InvalidUsername
 
 from ..components.streamlit_elements import confirm_button
 
+from application.use_cases import AddMoney, EditProfile
+
 
 @st.dialog(title="Пополнить баланс")
 def display_add_money_popup(user_repo: UserDatabaseRepository):
